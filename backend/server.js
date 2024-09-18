@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import db from "./util/db.js";
+import routers from "./router/user.route.js";
 
 const app = express();
 // console.log(app, "The data is fetched");
@@ -9,6 +10,8 @@ const app = express();
 dotenv.config();
 
 db();
+app.use(express.json());
+app.use("/api", routers);
 
 // mongoose
 //   .connect(
