@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const GetUser = () => {
   const [data, setData] = useState([]);
@@ -25,8 +26,20 @@ const GetUser = () => {
     navigate(`/updateuser/${id}`);
   };
 
-  const handledelete = (id) => {
-    console.log("the delete is run");
+  const handledelete = async (id) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:4000/api/deleteUser/${id}`
+      );
+      if (response.status === 200) {
+        toast.success("User deleted successfully!");
+        fetchedData();
+      } else {
+        console.error("Failed to delete user.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -85,11 +98,7 @@ const GetUser = () => {
             ) : (
               <tr>
                 <td colSpan="5" className="text-center p-4 text-gray-500">
-<<<<<<< HEAD
-                  No user Found
-=======
                   No users found
->>>>>>> 23a65bc66eb005f59e2561a1991dafd097e2c372
                 </td>
               </tr>
             )}
