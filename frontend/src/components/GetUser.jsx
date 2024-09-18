@@ -62,7 +62,7 @@ const GetUser = () => {
             ) : (
               <tr>
                 <td colSpan="5" className="text-center p-4 text-gray-500">
-                  No users found. 1 feature 2
+                  No users found
                 </td>
               </tr>
             )}
