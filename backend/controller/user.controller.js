@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import userModel from "../model/user.controller.js";
 
 const createUser = async (req, res) => {
@@ -15,4 +16,22 @@ const createUser = async (req, res) => {
   }
 };
 
-export { createUser };
+const getUser = async (req, res) => {
+  try {
+    const user = await userModel.find();
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User not found" });
+    }
+
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error" });
+  }
+};
+
+export { createUser, getUser };
