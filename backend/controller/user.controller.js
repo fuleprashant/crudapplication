@@ -53,4 +53,25 @@ const singleUserData = async (req, res) => {
   }
 };
 
-export { createUser, getUser, singleUserData };
+const updateUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const updateUser = await userModel.findByIdAndUpdate(userId, req.body, {
+      new: true,
+    });
+
+    if (!updateUser) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User not found" });
+    }
+
+    res.status(200).json({ success: true, updateUser });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error" });
+  }
+};
+
+export { createUser, getUser, singleUserData, updateUser };
