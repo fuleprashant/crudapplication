@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AddUser = () => {
   const [value, setvalue] = useState({
@@ -18,15 +19,19 @@ const AddUser = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(value);
-    const responce = await axios.post(
-      "http://localhost:4000/api/create",
-      value
-    );
-    // console.log(responce);
-    if (responce.success) {
-      alert("user created successfully");
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/create",
+        value
+      );
+      // console.log(response);
+      if (response.data.success) {
+        toast.success("User created successfully");
+      }
+      navigate("/");
+    } catch (error) {
+      toast.error("Error creating user");
     }
-    navigate("/");
   };
 
   return (
