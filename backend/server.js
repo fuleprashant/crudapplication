@@ -10,9 +10,9 @@ const app = express();
 dotenv.config();
 
 db();
+app.use(cors());
 app.use(express.json());
 app.use("/api", routers);
-app.use(cors());
 
 // mongoose
 //   .connect(

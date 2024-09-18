@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AddUser = () => {
   const [value, setvalue] = useState({
@@ -7,15 +9,26 @@ const AddUser = () => {
     email: "",
     phone: "",
   });
+  const navigate = useNavigate();
 
   const handleClick = (e) => {
     setvalue({ ...value, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(value);
+    // console.log(value);
+    const responce = await axios.post(
+      "http://localhost:4000/api/create",
+      value
+    );
+    // console.log(responce);
+    if (responce.success) {
+      alert("user created successfully");
+    }
+    navigate("/");
   };
+
   return (
     <>
       <div className="p-8 bg-gray-100 min-h-screen flex items-center justify-center">
