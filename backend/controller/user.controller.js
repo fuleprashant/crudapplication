@@ -66,7 +66,9 @@ const updateUser = async (req, res) => {
         .json({ success: false, message: "User not found" });
     }
 
-    res.status(200).json({ success: true, updateUser });
+    res
+      .status(200)
+      .json({ success: true, message: "User Updated succesfully", updateUser });
   } catch (error) {
     return res
       .status(500)
@@ -74,4 +76,21 @@ const updateUser = async (req, res) => {
   }
 };
 
-export { createUser, getUser, singleUserData, updateUser };
+const deleteUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const deleteUser = await userModel.findByIdAndDelete(userId);
+
+    if (!deleteUser) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User not found" });
+    }
+
+    res
+      .status(200)
+      .json({ success: true, message: "User deleted succesfully" });
+  } catch (error) {}
+};
+
+export { createUser, getUser, singleUserData, updateUser, deleteUser };
