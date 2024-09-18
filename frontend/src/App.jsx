@@ -15,7 +15,7 @@ const App = () => {
       element: <AddUser />,
     },
     {
-      path: "/updateuser",
+      path: "/updateuser/:id",
       element: <UpdateUser />,
     },
   ]);
