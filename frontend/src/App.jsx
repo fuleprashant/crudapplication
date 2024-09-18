@@ -1,8 +1,28 @@
 import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import GetUser from "./components/getUser";
+import AddUser from "./components/addUser";
+import UpdateUser from "./components/updateUser";
 
 const App = () => {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <GetUser />,
+    },
+    {
+      path: "/createuser",
+      element: <AddUser />,
+    },
+    {
+      path: "/updateuser",
+      element: <UpdateUser />,
+    },
+  ]);
   return (
-    <div className="text-black bg-red-800">This is the main application</div>
+    <div>
+      <RouterProvider router={router} />
+    </div>
   );
 };
 

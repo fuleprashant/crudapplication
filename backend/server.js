@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
+import cors from "cors";
 import db from "./util/db.js";
 import routers from "./router/user.route.js";
 
@@ -12,6 +12,7 @@ dotenv.config();
 db();
 app.use(express.json());
 app.use("/api", routers);
+app.use(cors());
 
 // mongoose
 //   .connect(
