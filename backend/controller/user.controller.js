@@ -34,4 +34,23 @@ const getUser = async (req, res) => {
   }
 };
 
-export { createUser, getUser };
+const singleUserData = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const singleUser = await userModel.findById(userId);
+
+    if (!singleUser) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User not found" });
+    }
+
+    res.status(200).json({ success: true, singleUser });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error" });
+  }
+};
+
+export { createUser, getUser, singleUserData };
